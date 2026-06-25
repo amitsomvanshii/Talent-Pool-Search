@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+:root {
+  --background: #3e3845; /* Soft premium slate-charcoal midtone */
+  --foreground: #f6f3eb; /* Vintage Off-White */
+  
+  /* Color Palette */
+  --vintage-brown: #8b5a2b;
+  --vintage-brown-dark: #422812;
+  --off-red: #c24641; /* Rust / Terracotta Red */
+  --off-red-dark: #5a1c1a;
+  --dark-purple: #32124d;
+  --dark-purple-dark: #19052b;
+  --black: #28242d;
+  
+  --card-bg-search: rgba(25, 5, 43, 0.45); /* Dark Purple tint */
+  --card-bg-upload: rgba(66, 40, 18, 0.35); /* Vintage Brown tint */
+  
+  --card-border-search: rgba(194, 70, 65, 0.15); /* Off-red border hints */
+  --card-border-upload: rgba(139, 90, 43, 0.2);  /* Brown border hints */
+  
+  --primary: #c24641;
+  --success: #8b5a2b;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background grid pattern with vintage gradients */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(139, 90, 43, 0.09) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(50, 18, 77, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(194, 70, 65, 0.05) 0%, transparent 40%),
+    linear-gradient(to right, rgba(246, 243, 235, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(246, 243, 235, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Custom functional styles */
+.search-theme-panel {
+  background: var(--card-bg-search);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border-search);
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.15); /* Soft grounded shadow */
+}
+
+.search-theme-panel:hover {
+  border-color: rgba(194, 70, 65, 0.3);
+  box-shadow: 0 6px 24px 0 rgba(50, 18, 77, 0.18);
+}
+
+.upload-theme-panel {
+  background: var(--card-bg-upload);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border-upload);
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.15); /* Soft grounded shadow */
+}
+
+.upload-theme-panel:hover {
+  border-color: rgba(139, 90, 43, 0.4);
+  box-shadow: 0 6px 24px 0 rgba(139, 90, 43, 0.08);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 90, 43, 0.25);
+  border-radius: 999px;
+  border: 2px solid var(--black);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(194, 70, 65, 0.45);
+}
+
+/* Custom candidate role tag colors */
+.tag-engineering {
+  background: rgba(50, 18, 77, 0.6);
+  color: #d1bcf5;
+  border: 1px solid rgba(130, 90, 190, 0.3);
+}
+
+.tag-design {
+  background: rgba(139, 90, 43, 0.25);
+  color: #fbd38d;
+  border: 1px solid rgba(139, 90, 43, 0.4);
+}
+
+.tag-product-sales {
+  background: rgba(194, 70, 65, 0.2);
+  color: #feb2b2;
+  border: 1px solid rgba(194, 70, 65, 0.35);
+}
+
+.tag-general {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom buttons */
+.btn-vintage-search {
+  background: rgba(50, 18, 77, 0.5); /* Semi-transparent embedded purple */
+  color: var(--foreground);
+  border: 1px solid rgba(194, 70, 65, 0.3);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.btn-vintage-search:hover {
+  background: rgba(194, 70, 65, 0.45); /* Muted embedded off-red fill */
+  border-color: rgba(194, 70, 65, 0.65);
+  box-shadow: 0 3px 8px rgba(194, 70, 65, 0.15);
+  transform: none; /* No float effect */
+}
+
+.btn-vintage-upload {
+  background: rgba(66, 40, 18, 0.5); /* Semi-transparent embedded brown */
+  color: var(--foreground);
+  border: 1px solid rgba(139, 90, 43, 0.35);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.btn-vintage-upload:hover {
+  background: rgba(139, 90, 43, 0.4); /* Muted embedded brown fill */
+  border-color: rgba(139, 90, 43, 0.7);
+  box-shadow: 0 3px 8px rgba(139, 90, 43, 0.12);
+  transform: none; /* No float effect */
+}
+
+/* Animations utility */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
