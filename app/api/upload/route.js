@@ -38,6 +38,21 @@ export async function POST(req) {
     // 2. Extract contact details (regex on raw text before scrubbing)
     const contactInfo = extractContactDetails(rawText);
 
+    // Check for duplicate candidate (by email or phone)
+    const { getCandidates } = require('@/lib/db');
+    const existingCandidates = await getCandidates();
+    const isDuplicate = existingCandidates.some(c => {
+      const emailMatch = contactInfo.email && c.email && c.email.toLowerCase().trim() === contactInfo.email.toLowerCase().trim();
+      const phoneMatch = contactInfo.phone && c.phone && c.phone.replace(/\D/g, '') === contactInfo.phone.replace(/\D/g, '');
+      return emailMatch || phoneMatch;
+    });
+
+    if (isDuplicate) {
+      return NextResponse.json({ 
+        error: `Candidate with email '${contactInfo.email}' or phone number already exists in the talent pool.` 
+      }, { status: 409 });
+    }
+
     // 3. Scrub PII from the raw text (replace with placeholders)
     const scrubbedText = scrubPII(rawText);
 
